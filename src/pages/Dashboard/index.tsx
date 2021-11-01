@@ -1,5 +1,17 @@
+import {Header} from "../../components/header";
+import {Container} from "./styles";
+import {Summary} from "../../components/summary";
+import {ActivityTable} from "../../components/activity-table";
+
+
 export function Dashboard(){
     return(
-        <h1>Dashboard</h1>
+        <>
+            <Header/>
+            <Container>
+                <Summary/>
+                <ActivityTable/>
+            </Container>
+        </>
     )
 }
