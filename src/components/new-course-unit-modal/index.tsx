@@ -1,43 +1,62 @@
+import React from 'react';
 import Modal from 'react-modal';
-import {useForm} from 'react-hook-form';
-import {Container, Error} from './styles';
 import {FiX} from 'react-icons/fi';
+import { useForm } from 'react-hook-form'
+import { Container, Error } from './styles'
+import api from '../../services/api';
 
-interface NewCourseUnitModalProps{
+interface NewCourseUnitModalProps {
     isOpen: boolean;
     onRequestClose: () => void;
 }
 
-interface NewCourseUnitModalData{
+interface NewCourseUnitModalData {
     name: string;
     description: string;
 }
 
-export function NewCourseUnitModal({isOpen, onRequestClose}: NewCourseUnitModalProps){
+export function NewCourseUnitModal({isOpen, onRequestClose}:NewCourseUnitModalProps) {
 
-    const {register, handleSubmit, formState: {errors}} = useForm<NewCourseUnitModalData>();
+    const { register, handleSubmit, formState: {errors} } = useForm<NewCourseUnitModalData>();
 
-    const onSubmit = handleSubmit(data => alert(JSON.stringify(data)));
+    const onSubmit = handleSubmit(data => api.post('/courseunit', data)
+        .then(onRequestClose));
 
     return(
-      <Modal isOpen={isOpen} onRequestClose={onRequestClose} overlayClassName="react-modal-overlay" className="react-modal-content">
-          <Container>
-              <h1>Create Course Unit</h1>
-              <button type="button" onClick={onRequestClose} className="react-modal-close">
-                  <FiX size={20}>
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            overlayClassName="react-modal-overlay"
+            className="react-modal-content"
+        >
+            <Container>
+                <h2>Cadastrar Unidade Curricular</h2>
+                <button
+                    type="button"
+                    onClick={onRequestClose}
+                    className="react-modal-close"
+                >
+                    <FiX size={20}/>
+                </button>
+                <form onSubmit={onSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Nome"
+                        {...register("name")}
+                    />
+                    {errors.name && <Error>O prenchimento do campo Ã© obrigatÃ³rio</Error>}
+                    <input
+                        type="text"
+                        placeholder="DescriÃ§Ã£o"
+                        {...register("description")}
+                    />
+                    {errors.description && <Error>O prenchimento do campo Ã© obrigatÃ³rio</Error>}
+                    <button type="submit">
+                        Cadastrar
+                    </button>
+                </form>
+            </Container>
+        </Modal>
 
-                  </FiX>
-              </button>
-              <form onSubmit={onSubmit}>
-                  <input type="text" placeholder="Curricular Unit Name" { ... register("name", {required:true})}/>
-                  {errors.name && <Error>Filling in the field is mandatory</ Error>}
-                  <input type="text" placeholder="description" { ... register("description", {required:true})}/>
-                  {errors.description && <Error>Filling in the field is mandatory</ Error>}
-                  <button type="submit">
-                      Create
-                  </button>
-              </form>
-          </Container>
-      </Modal>
     )
 }

@@ -1,53 +1,68 @@
-import {Background, Container, Content, FormContainer, Error, InputContainer} from "./styles";
-import {FiArrowLeft, FiLock, FiMail, FiUser} from "react-icons/fi";
-import {Button} from "../../components/button";
-import {Link} from "react-router-dom";
-import {useForm} from 'react-hook-form';
+import {Container,Content,FormContainer, InputContainer, Error, Background} from './styles';
+import {FiArrowLeft, FiMail, FiLock, FiUser} from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form'
+import { Button } from '../../components/Button';
+import api from '../../services/api';
 
-interface FormData{
-    name: string;
+interface FormData {
+    name:string;
     email: string;
-    password: string;
+    password: string
 }
 
-export function Register(){
+export function Register() {
 
-    const {register, handleSubmit, formState: {errors}} = useForm<FormData>();
+    const { register, handleSubmit, formState: {errors} } = useForm<FormData>();
 
-    const onSubmit = handleSubmit(data => alert(JSON.stringify(data)))
+    const history = useHistory()
 
-    return(
+    const onSubmit = handleSubmit(data => api.post('/user', data).then(() => history.push('/')));
+
+    return (
         <Container>
             <Content>
                 <FormContainer>
-                    <h2>Create Account</h2>
+                    <h2>FaÃ§a seu cadastro</h2>
                     <form onSubmit={onSubmit}>
                         <InputContainer>
-                            <FiUser size={40}/>
-                            <input type="text" placeholder="Name" { ... register("name", {required: true})} />
+                            <FiUser size={20}/>
+                            <input
+                                placeholder="Nome"
+                                {...register("name", {required:true})}
+                                type="text"
+                            />
                         </InputContainer>
-                        {errors.name && <Error>Filling in the field is mandatory</ Error>}
+                        {errors.name && <Error>O preenchimento deste campo Ã© obrigatÃ³rio</Error>}
                         <InputContainer>
-                            <FiMail size={40}/>
-                            <input type="email" placeholder="E-mail" { ... register("email", {required: true})}/>
+                            <FiMail size={20}/>
+                            <input
+                                placeholder="E-mail"
+                                {...register("email", {required:true})}
+                                type="email"
+                            />
                         </InputContainer>
-                        {errors.email && <Error>Filling in the field is mandatory</ Error>}
+                        {errors.email && <Error>O preenchimento deste campo Ã© obrigatÃ³rio</Error>}
                         <InputContainer>
-                            <FiLock size={40}/>
-                            <input type="password" placeholder="password" { ... register("password", {required: true})}/>
+                            <FiLock size={20}/>
+                            <input
+                                placeholder="Senha"
+                                {...register("password", {required:true})}
+                                type="password"
+                            />
                         </InputContainer>
-                        {errors.password && <Error>Filling in the field is mandatory</ Error>}
-                        <Button type="submit">Create</Button>
+                        {errors.password && <Error>O preenchimento deste campo Ã© obrigatÃ³rio</Error>}
+                        <Button type="submit">Cadastrar</Button>
                     </form>
                     <Link to="/">
-                        <FiArrowLeft size={40}/>
-                        Return and sign up
+                        <FiArrowLeft />
+                        Voltar para login
                     </Link>
                 </FormContainer>
-            </Content>
-            <Background>
 
-            </Background>
+            </Content>
+            <Background />
         </Container>
+
     )
 }
