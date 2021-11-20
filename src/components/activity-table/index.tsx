@@ -23,7 +23,7 @@ export function ActivyTable() {
 
         api.get('/activy')
             .then(response => setActivies(response.data))
-    },[])
+    }, [])
 
     return (
         <Container>
@@ -52,4 +52,5 @@ export function ActivyTable() {
                 </tbody>
             </table>
         </Container>
-    )
+    );
+}

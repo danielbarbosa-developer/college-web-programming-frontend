@@ -2,7 +2,7 @@ import {Container,Content,FormContainer, InputContainer, Error, Background} from
 import {FiArrowLeft, FiMail, FiLock, FiUser} from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
-import { Button } from '../../components/Button';
+import { Button } from '../../components/button';
 import api from '../../services/api';
 
 interface FormData {

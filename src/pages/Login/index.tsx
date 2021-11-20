@@ -2,7 +2,7 @@ import {Container,Content,FormContainer, InputContainer, Error, Background} from
 import {FiLogIn, FiMail, FiLock} from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
-import { Button } from '../../components/Button';
+import { Button } from '../../components/button';
 import {useAuth} from '../../hooks/Auth';
 
 interface FormData {

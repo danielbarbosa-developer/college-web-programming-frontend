@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Header } from "../../components/header;
-import { ActivyTable } from '../../components/ActivyTable';
-import { Summary } from '../../components/Summary';
-import {NewActivyModal} from '../../components/NewActivyModal';
-import {NewCourseUnitModal} from '../../components/NewCourseUnitModal';
+import { Header } from '../../components/header';
+import { ActivyTable } from '../../components/activity-table';
+import { Summary } from '../../components/summary';
+import {NewActivyModal} from '../../components/new-activity-modal';
+import {NewCourseUnitModal} from '../../components/new-course-unit-modal';
 
 import {Container} from './styles'
 
